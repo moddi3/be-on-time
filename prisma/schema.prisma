@@ -2,12 +2,15 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
+    previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-    provider = "sqlite" // NOTE: sqlite does not work with NextAuth.js
-    url      = env("DATABASE_URL")
+    // provider = "postgres" // NOTE: sqlite does not work with NextAuth.js
+    provider             = "mysql" // NOTE: sqlite does not work with NextAuth.js
+    url                  = env("DATABASE_URL")
+    referentialIntegrity = "prisma"
 }
 
 model Example {
@@ -21,12 +24,12 @@ model Account {
     type              String
     provider          String
     providerAccountId String
-    refresh_token     String?
-    access_token      String?
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
     expires_at        Int?
     token_type        String?
-    scope             String?
-    id_token          String?
+    scope             String? @db.Text
+    id_token          String? @db.Text
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -42,13 +45,15 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String        @id @default(cuid())
     name          String?
-    email         String?   @unique
+    email         String?       @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
+    timeSlots     TimeSlot[]
+    reservarions  Reservation[]
 }
 
 model VerificationToken {
@@ -57,4 +62,46 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Client {
+    id    String @id @default(cuid())
+    name  String
+    email String
+    // redirectUri String?
+    // grants      String[]
+    // scopes      String[]
+    // userId      String
+    // user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    // reservations Reservation[]
+}
+
+model TimeSlot {
+    id          String      @id @default(cuid())
+    userId      String
+    weekDay     Int
+    time        DateTime    @db.Time
+    user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+    reservation Reservation?
+}
+
+model Reservation {
+    id          String            @id @default(cuid())
+    userId      String
+    clientId    String
+    timeSlotId  String            @unique
+    status      ReservationStatus @default(CREATED)
+    date        DateTime
+    description String
+    user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+    timeSlot    TimeSlot          @relation(fields: [timeSlotId], references: [id], onDelete: Cascade)
+    // client      Client            @relation(fields: [clientId], references: [id], onDelete: Cascade)
+}
+
+enum ReservationStatus {
+    CREATED
+    PENDING
+    CONFIRMED
+    CANCELLED
+    CANCELLED_BY_CLIENT
 }
