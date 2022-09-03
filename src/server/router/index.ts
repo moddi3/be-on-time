@@ -9,10 +9,10 @@ import { reservationRouter } from "./reservation";
 
 export const appRouter = createRouter()
   .transformer(superjson)
-  .merge('example.', exampleRouter)
-  .merge('question.', protectedExampleRouter)
-  .merge('timeSlot.', timeSlotRouter)
-  .merge('reservation.', reservationRouter)
+  .merge("example.", exampleRouter)
+  .merge("question.", protectedExampleRouter)
+  .merge("timeSlot.", timeSlotRouter)
+  .merge("reservation.", reservationRouter);
 
 // export type definition of API
 export type AppRouter = typeof appRouter;

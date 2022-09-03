@@ -1,5 +1,5 @@
-import { createRouter } from "./context";
-import { z } from "zod";
+import { createRouter } from './context';
+import { z } from 'zod';
 
 export const timeSlotRouter = createRouter()
     //   .query("get", {
@@ -20,29 +20,30 @@ export const timeSlotRouter = createRouter()
                 where: {
                     userId: ctx.session?.user?.id,
                 },
-            })
+            });
 
             return timeSlots;
         },
     })
     .query('getByWeekDay', {
         input: z.object({
-            weekDay: z.number()
+            weekDay: z.number(),
+            available: z.boolean().optional(),
         }),
         async resolve({ ctx, input }) {
             const timeSlots = await ctx.prisma.timeSlot.findMany({
                 where: {
                     userId: ctx.session?.user?.id,
-                    weekDay: input.weekDay
+                    weekDay: input.weekDay,
                 },
                 select: {
                     id: true,
                     time: true,
                     reservation: true,
-                    weekDay: true
-                }
-            })
-
+                    weekDay: true,
+                },
+            });
+            console.log('timeSlots', timeSlots);
             return timeSlots;
         },
     })
@@ -56,10 +57,9 @@ export const timeSlotRouter = createRouter()
                 data: {
                     weekDay: input.weekDay,
                     time: input.time,
-                    userId: ctx.session?.user?.id!
+                    userId: ctx.session?.user?.id!,
                 },
-            })
+            });
             return timeSlot;
-        }
+        },
     });
-
