@@ -69,7 +69,7 @@ const Reserve: NextPage = () => {
                                 <StaticDatePicker
                                     onChange={(newValue) => {
 
-                                        setValue(newValue);
+                                        setValue(newValue!);
                                     }}
                                     value={value}
                                     renderInput={(params) => (
