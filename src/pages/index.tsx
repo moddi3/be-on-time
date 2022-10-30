@@ -1,13 +1,11 @@
-import { Button, Typography } from '@mui/material';
 import type { GetServerSideProps, NextPage } from 'next';
+
 import { Session, unstable_getServerSession } from 'next-auth';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { authOptions } from './api/auth/[...nextauth]';
-import LoadingButton from '@mui/lab/LoadingButton';
-import MuiLink from '@mui/material/Link';
 
 const Home: NextPage = () => {
     return (
@@ -19,12 +17,9 @@ const Home: NextPage = () => {
             </Head>
 
             <main className="container mx-auto flex flex-col items-center justify-center h-screen p-4">
-                <Typography
-                    variant="h1"
-                    className="font-extrabold text-gray-700"
-                >
-                    Be <span className="text-purple-300">On</span> Time
-                </Typography>
+                <h1 className="font-extrabold text-gray-700">
+                    Be <span className="text-purple-300">On</span> Time old
+                </h1>
                 <HomeContent />
             </main>
         </>
@@ -59,21 +54,19 @@ const HomeContent = () => {
                 , you are logged in!
                 <br />
                 <Link href={`/${session.user?.id}/reserve/`}>
-                    <MuiLink component="button" variant="h6">
-                        Reserve {session.user?.id}
-                    </MuiLink>
+                    Reserve {session.user?.id}
                 </Link>
             </p>
 
-            <LoadingButton
-                loading={isLoading}
+            <a
+                // loading={isLoading}
                 onClick={logOut}
-                variant="outlined"
-                color="error"
+                // variant="outlined"
+                // color="error"
                 className="rounded-md w-full"
             >
                 Log out
-            </LoadingButton>
+            </a>
         </div>
     );
 };
@@ -87,15 +80,15 @@ const LoginButton: React.FC<{ onClick: () => void }> = ({ onClick }) => {
     };
 
     return (
-        <LoadingButton
+        <a
             onClick={onClickAction}
-            loading={isLoading}
-            variant="outlined"
-            color="secondary"
+            // loading={isLoading}
+            // variant="outlined"
+            // color="secondary"
             className="rounded-md w-full"
         >
             Login with Google
-        </LoadingButton>
+        </a>
     );
 };
 

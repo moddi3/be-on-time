@@ -64,10 +64,12 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
+// model Contact {
 model Client {
     id    String @id @default(cuid())
     name  String
     email String
+    // emails String[]
     // redirectUri String?
     // grants      String[]
     // scopes      String[]

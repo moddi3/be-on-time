@@ -16,14 +16,15 @@ const dayOfWeek = (date: Date) => {
 const Dashboard: NextPage = () => {
   const [date, setDate] = useState(new Date());
 
-  const { data, refetch, isLoading, isError, error } = trpc.useQuery(
-    ["timeSlot.getByWeekDay", { weekDay: dayOfWeek(date) }],
-    {
-      refetchOnWindowFocus: false,
-      onSuccess: (res) => {
-        console.log(res);
-      },
-    }
+  const { data, refetch, isLoading, isError, error } = trpc.timeSlot.getByWeekDay.useQuery(
+    { weekDay: dayOfWeek(date) },
+      {
+          refetchOnWindowFocus: false,
+          onSuccess: (res) => {
+              console.log(res);
+          },
+          trpc: {}
+      }
   );
   return (
     <div className="w-full h-screen flex justify-center p-10">

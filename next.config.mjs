@@ -15,4 +15,19 @@ function defineNextConfig(config) {
 export default defineNextConfig({
   reactStrictMode: true,
   swcMinify: true,
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
+  },
+  experimental: {
+    appDir: true,
+    newNextLinkBehavior: true,
+    serverComponentsExternalPackages: ["prisma"],
+    // transpilePackages: [
+    //   "@babel/preset-react",
+    //   "@fullcalendar/common",
+    //   "@fullcalendar/daygrid",
+    //   "@fullcalendar/react",
+    // ]
+  },
 });

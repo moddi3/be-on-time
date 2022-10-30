@@ -4,15 +4,9 @@ import { trpc } from '../../../utils/trpc';
 import dayjs from '../../../utils/dayjs';
 import { useState } from 'react';
 
-import { Box, Typography } from '@mui/material';
-import TextField from '@mui/material/TextField';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 import { Dayjs } from 'dayjs';
-import { LoadingButton } from '@mui/lab';
-import TimeZonePicker from './TimeZonePicker';
-import TimeSlots from './TimeSlots';
+import TimeZonePicker from './_timezonepicker';
+import TimeSlots from './_timeslots';
 
 const dayOfWeek = (date: Dayjs) => {
     return dayjs(date).isoWeekday();
@@ -24,20 +18,18 @@ const Reserve: NextPage = () => {
     const [value, setValue] = useState<Dayjs>(() => dayjs());
     const [selectedSlot, setSlot] = useState<any>();
 
-    const { refetch, data, isLoading, isError } = trpc.useQuery(
-        [
-            'timeSlot.getByWeekDay',
-            { weekDay: dayOfWeek(value), available: true },
-        ],
+    const { refetch, data, isLoading, isError } = trpc.timeSlot.getByWeekDay.useQuery(
+        { weekDay: dayOfWeek(value), available: true },
         {
             refetchOnWindowFocus: false,
             onSuccess: (res) => {
                 console.log(res);
             },
+            trpc: {}
         }
     );
 
-    const { mutate } = trpc.useMutation('reservation.create', {
+    const { mutate } = trpc.reservation.create.useMutation({
         onSuccess: () => {
             refetch();
         },
@@ -54,18 +46,17 @@ const Reserve: NextPage = () => {
     return (
         <div className="">
             <div className="flex flex-col items-center justify-center">
-                <Typography
-                    variant="h2"
+                <h2
                     className="font-extrabold p-10 text-gray-700"
                 >
                     Reserve
-                </Typography>
+                </h2>
 
                 <div className="flex">
                     <div className="flex flex-col items-center">
                         <TimeZonePicker />
-                        <Box>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <div>
+                            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <StaticDatePicker
                                     onChange={(newValue) => {
 
@@ -84,8 +75,8 @@ const Reserve: NextPage = () => {
                                     // disablePast
                                     orientation="landscape"
                                 />
-                            </LocalizationProvider>
-                        </Box>
+                            </LocalizationProvider> */}
+                        </div>
                         <TimeSlots
                             timeSlots={data!}
                             isLoading={isLoading}
@@ -100,9 +91,9 @@ const Reserve: NextPage = () => {
                             }}
                         />
                         {selectedSlotText}
-                        <LoadingButton
-                            loading={isLoading}
-                            disabled={!data?.length || !selectedSlot}
+                        <a
+                            // loading={isLoading}
+                            // disabled={!data?.length || !selectedSlot}
                             onClick={
                                 () => console.log(dayjs(value).isUTC())
                                 // mutate({
@@ -112,12 +103,12 @@ const Reserve: NextPage = () => {
                                 //     weekDay: selectedSlot.weekDay,
                                 // })
                             }
-                            variant="outlined"
-                            color="info"
+                            // variant="outlined"
+                            // color="info"
                             className="rounded-md w-full p-2"
                         >
                             Submit request
-                        </LoadingButton>
+                        </a>
                         {/* <button
                             type="button"
                             disabled={isLoading || !data?.length}

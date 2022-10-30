@@ -1,9 +1,8 @@
-import { Chip } from '@mui/material';
 // import { TimeSlot } from '@prisma/client';
 import { useAtom } from 'jotai';
 
 import dayjs from '../../../utils/dayjs';
-import { timezoneAtom } from './TimeZonePicker';
+import { timezoneAtom } from './_timezonepicker';
 
 type TimeSlot = {
     id: string;
@@ -64,7 +63,7 @@ const TimeSlots: React.FC<{
                                 .tz(timezone)
                                 .toString()}
                         </button> */}
-                        <Chip
+                        {/* <Chip
                             disabled={!!slot.reservation}
                             label={dayjs()
                                 .set('hours', hours)
@@ -76,7 +75,7 @@ const TimeSlots: React.FC<{
                                 .toString()}
                             variant="outlined"
                             onClick={() => onSelected(slot)}
-                        />
+                        /> */}
                     </div>
                 );
             })}
