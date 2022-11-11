@@ -21,11 +21,11 @@ export default defineNextConfig({
   },
   experimental: {
     newNextLinkBehavior: true,
-    // transpilePackages: [
-    //   "@babel/preset-react",
-    //   "@fullcalendar/common",
-    //   "@fullcalendar/daygrid",
-    //   "@fullcalendar/react",
-    // ]
+    transpilePackages: [
+      "@babel/preset-react",
+      "@fullcalendar/common",
+      "@fullcalendar/daygrid",
+      "@fullcalendar/react",
+    ]
   },
 });
