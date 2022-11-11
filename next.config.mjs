@@ -20,9 +20,7 @@ export default defineNextConfig({
     defaultLocale: "en",
   },
   experimental: {
-    appDir: true,
     newNextLinkBehavior: true,
-    serverComponentsExternalPackages: ["prisma"],
     // transpilePackages: [
     //   "@babel/preset-react",
     //   "@fullcalendar/common",
