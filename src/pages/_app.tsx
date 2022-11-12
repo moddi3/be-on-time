@@ -10,18 +10,15 @@ import '../styles/globals.css';
 import '@fullcalendar/common/main.css';
 import '@fullcalendar/daygrid/main.css';
 
-const MyApp: AppType<{ session: Session | null }> = ({
-    Component,
-    pageProps: { session, ...pageProps },
-  }) => {
-    return (
-        <>
-            <SessionProvider session={session}>
-                <Component {...pageProps} />
-            </SessionProvider>
-            <Analytics />
-        </>
-    );
+const MyApp: AppType<{ session: Session | null }> = ({ Component, pageProps: { session, ...pageProps } }) => {
+	return (
+		<>
+			<SessionProvider session={session}>
+				<Component {...pageProps} />
+			</SessionProvider>
+			<Analytics />
+		</>
+	);
 };
 
 export default trpc.withTRPC(MyApp);

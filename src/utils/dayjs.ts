@@ -10,7 +10,7 @@ dayjs.extend(timezone);
 dayjs.extend(updateLocale);
 
 dayjs.updateLocale('en', {
-    weekStart: 1,
+	weekStart: 1,
 });
 
 export default dayjs;

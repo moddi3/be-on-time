@@ -9,54 +9,48 @@ import TimeZonePicker from './_timezonepicker';
 import TimeSlots from './_timeslots';
 
 const dayOfWeek = (date: Dayjs) => {
-    return dayjs(date).isoWeekday();
+	return dayjs(date).isoWeekday();
 };
 
 const Reserve: NextPage = () => {
-    const { query } = useRouter();
+	const { query } = useRouter();
 
-    const [value, setValue] = useState<Dayjs>(() => dayjs());
-    const [selectedSlot, setSlot] = useState<any>();
+	const [value, setValue] = useState<Dayjs>(() => dayjs());
+	const [selectedSlot, setSlot] = useState<any>();
 
-    const { refetch, data, isLoading, isError } = trpc.timeSlot.getByWeekDay.useQuery(
-        { weekDay: dayOfWeek(value), available: true },
-        {
-            refetchOnWindowFocus: false,
-            onSuccess: (res) => {
-                console.log(res);
-            },
-            trpc: {}
-        }
-    );
+	const { refetch, data, isLoading, isError } = trpc.timeSlot.getByWeekDay.useQuery(
+		{ weekDay: dayOfWeek(value), available: true },
+		{
+			refetchOnWindowFocus: false,
+			onSuccess: (res) => {
+				console.log(res);
+			},
+			trpc: {},
+		}
+	);
 
-    const { mutate } = trpc.reservation.create.useMutation({
-        onSuccess: () => {
-            refetch();
-        },
-    });
+	const { mutate } = trpc.reservation.create.useMutation({
+		onSuccess: () => {
+			refetch();
+		},
+	});
 
-    if (!query.uid || typeof query.uid !== 'string') {
-        return null;
-    }
+	if (!query.uid || typeof query.uid !== 'string') {
+		return null;
+	}
 
-    const selectedSlotText = selectedSlot && (
-        <p>You selected {selectedSlot.time.toString()}</p>
-    );
+	const selectedSlotText = selectedSlot && <p>You selected {selectedSlot.time.toString()}</p>;
 
-    return (
-        <div className="">
-            <div className="flex flex-col items-center justify-center">
-                <h2
-                    className="font-extrabold p-10 text-gray-700"
-                >
-                    Reserve
-                </h2>
+	return (
+		<div className="">
+			<div className="flex flex-col items-center justify-center">
+				<h2 className="font-extrabold p-10 text-gray-700">Reserve</h2>
 
-                <div className="flex">
-                    <div className="flex flex-col items-center">
-                        <TimeZonePicker />
-                        <div>
-                            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+				<div className="flex">
+					<div className="flex flex-col items-center">
+						<TimeZonePicker />
+						<div>
+							{/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <StaticDatePicker
                                     onChange={(newValue) => {
 
@@ -76,40 +70,39 @@ const Reserve: NextPage = () => {
                                     orientation="landscape"
                                 />
                             </LocalizationProvider> */}
-                        </div>
-                        <TimeSlots
-                            timeSlots={data!}
-                            isLoading={isLoading}
-                            isError={isError}
-                            onSelected={(slot) => {
-                                // const [hour, minute] = slot.time.split(':');
-                                console.log(slot.time.getHours());
-                                // let newDate = dayjs(date).set('hours', slot.time.)
-                                // console.log(newDate.toISOString());
-                                // setValue(slot.time);
-                                setSlot(slot);
-                            }}
-                        />
-                        {selectedSlotText}
-                        <a
-                            // loading={isLoading}
-                            // disabled={!data?.length || !selectedSlot}
-                            onClick={
-                                () => console.log(dayjs(value).isUTC())
-                                // mutate({
-                                //     date: value.toDate(),
-                                //     description: '',
-                                //     timeSlotId: selectedSlot.id,
-                                //     weekDay: selectedSlot.weekDay,
-                                // })
-                            }
-                            // variant="outlined"
-                            // color="info"
-                            className="rounded-md w-full p-2"
-                        >
-                            Submit request
-                        </a>
-                        {/* <button
+						</div>
+						<TimeSlots
+							timeSlots={data!}
+							isLoading={isLoading}
+							isError={isError}
+							onSelected={(slot) => {
+								// const [hour, minute] = slot.time.split(':');
+								console.log(slot.time.getHours());
+								// let newDate = dayjs(date).set('hours', slot.time.)
+								// console.log(newDate.toISOString());
+								// setValue(slot.time);
+								setSlot(slot);
+							}}
+						/>
+						{selectedSlotText}
+						<a
+							// loading={isLoading}
+							// disabled={!data?.length || !selectedSlot}
+							onClick={
+								() => console.log(dayjs(value).isUTC())
+								// mutate({
+								//     date: value.toDate(),
+								//     description: '',
+								//     timeSlotId: selectedSlot.id,
+								//     weekDay: selectedSlot.weekDay,
+								// })
+							}
+							// variant="outlined"
+							// color="info"
+							className="rounded-md w-full p-2">
+							Submit request
+						</a>
+						{/* <button
                             type="button"
                             disabled={isLoading || !data?.length}
                             className={`
@@ -122,18 +115,18 @@ const Reserve: NextPage = () => {
                         >
                             Submit request
                         </button> */}
-                    </div>
+					</div>
 
-                    {/* <div> */}
-                    {/* <Button color="primary">Click me!</Button> */}
-                    {/* <Dropdown  >
+					{/* <div> */}
+					{/* <Button color="primary">Click me!</Button> */}
+					{/* <Dropdown  >
                         <div className="h-48 overflow-y-auto">
 
                         </div>
                     </Dropdown> */}
 
-                    {/* {`${tzOpen}`} */}
-                    {/* <Dropdown open={tzOpen}>
+					{/* {`${tzOpen}`} */}
+					{/* <Dropdown open={tzOpen}>
                         <Dropdown.Toggle onClick={() => setTzOpen(true)}>Click</Dropdown.Toggle>
                         <Dropdown.Menu className="w-52 h-48 overflow-y-auto">
 
@@ -149,7 +142,7 @@ const Reserve: NextPage = () => {
                         </Dropdown.Menu>
                     </Dropdown> */}
 
-                    {/* <div className="dropdown">
+					{/* <div className="dropdown">
                         <label tabIndex={0} className="btn m-1">Click</label>
                         <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
 
@@ -163,10 +156,10 @@ const Reserve: NextPage = () => {
                             <li><a>Item 2</a></li>
                         </ul>
                     </div> */}
-                    {/* </div> */}
-                </div>
-            </div>
-        </div>
-    );
+					{/* </div> */}
+				</div>
+			</div>
+		</div>
+	);
 };
 export default Reserve;
