@@ -7,8 +7,6 @@ import { Analytics } from '@vercel/analytics/react';
 import { trpc } from '../utils/trpc';
 
 import '../styles/globals.css';
-import '@fullcalendar/common/main.css';
-import '@fullcalendar/daygrid/main.css';
 
 const MyApp: AppType<{ session: Session | null }> = ({ Component, pageProps: { session, ...pageProps } }) => {
 	return (

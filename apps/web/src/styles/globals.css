@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#__next {
+	background-color: #fff;
+	height: 100%;
+}
+
+:root {
+	/* --fc-border-color: red !important; */
+	--fc-daygrid-event-dot-width: 5px !important;
+}
+
+.fc .fc-scrollgrid {
+	border-top-style: hidden !important;
+	border-left-style: hidden !important;
+	/* max-width: 1280px; */
+	max-width: 960px;
+}
+
+.fc-col-header {
+	border-style: hidden;
+}
+
+.fc .fc-daygrid-day-top {
+	padding: 5px 10px 0 0;
+}
+.fc td {
+	border: 1px solid var(--fc-border-color) !important;
+	border-radius: 15px !important;
+}
+
+.fc .fc-scrollgrid-sync-table {
+	border-top-style: hidden !important;
+	/* border-left-style: initial !important; */
+}
+
+.fc-scrollgrid thead tr th {
+	border-right-style: hidden !important;
+}
+
+th.fc-col-header-cell {
+	border-left-style: none !important;
+	border-right-style: none !important;
+}

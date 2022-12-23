@@ -8,6 +8,10 @@ import React, { useState } from 'react';
 import { getServerAuthSession } from '../server/common/get-server-auth-session';
 import { authOptions } from './api/auth/[...nextauth]';
 
+import { add } from 'math-helpers';
+
+console.log('add', add(1, 2));
+
 const Home: NextPage = () => {
 	return (
 		<>
@@ -54,6 +58,9 @@ const HomeContent = () => {
 				<Link href={`/${session.user?.id}/reserve/`}>Reserve {session.user?.id}</Link>
 			</p>
 
+			<p>
+				<Link href={`/${session.user?.id}/add-slot/`}>Add slot</Link>
+			</p>
 			<a
 				// loading={isLoading}
 				onClick={logOut}

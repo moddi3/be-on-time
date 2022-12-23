@@ -6,9 +6,12 @@ export type ButtonProps = {
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button: React.FC<ButtonProps> = ({ children, click, ...props }) => {
+	const styles = {};
 	return (
+		// bg-blue-500 hover:bg-blue-700
 		<button
-			className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+			className="text- font-medium bg-gray-200 hover:bg-slate-200 py-0 px-4 rounded-md h-[35px] leading-4 "
+			// style={styles}
 			onClick={click}
 			{...props}>
 			{children}

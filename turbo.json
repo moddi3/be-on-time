@@ -1,0 +1,25 @@
+{
+	"$schema": "https://turbo.build/schema.json",
+	"pipeline": {
+		"build": {
+			"dependsOn": ["^build"],
+			"outputs": [".next/**", "dist/**"]
+		},
+		"dev": {
+			"cache": false
+		},
+		"lint": {
+			"outputs": []
+		}
+	},
+	"globalDependencies": [
+		"$NODE_ENV",
+		"$DATABASE_URL",
+		"$NEXTAUTH_SECRET",
+		"$NEXTAUTH_URL",
+		"$GOOGLE_CLIENT_ID",
+		"$GOOGLE_CLIENT_SECRET",
+		"$VERCEL_URL",
+		"$PORT"
+	]
+}

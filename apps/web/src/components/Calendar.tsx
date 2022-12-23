@@ -1,13 +1,10 @@
-import FullCalendar, { CalendarOptions } from '@fullcalendar/react';
+import FullCalendar from '@fullcalendar/react';
+import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import rrulePlugin from '@fullcalendar/rrule';
 
-const Calendar: React.FC<
-	{
-		events: any[];
-	} & CalendarOptions
-> = ({ events, ...props }) => {
+const Calendar: React.FC<{ events: any[] } & CalendarOptions> = ({ events, ...props }) => {
 	const callback = (e: any) => console.log(e);
 	return (
 		<FullCalendar
