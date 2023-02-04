@@ -1,6 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next';
 
-import { Session, unstable_getServerSession } from 'next-auth';
+import { Session, getServerSession } from 'next-auth';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -21,11 +21,19 @@ const Home: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main className="container mx-auto flex flex-col items-center justify-center h-screen p-4">
-				<h1 className="font-extrabold text-gray-700">
-					Be <span className="text-purple-300">On</span> Time old
-				</h1>
-				<HomeContent />
+			<main className="main-cnt ">
+				<div className="flex h-screen items-center justify-center">
+					<div className="flex w-1/2 items-center justify-center pattern-container h-screen"></div>
+					<div className="flex flex-col w-1/2 items-center justify-center">
+						<div className="h-1/2">
+							<h1 className="text-4xl font-bold text-gray-700">
+								Welcome Back
+								{/* Be <span className="text-purple-300">On</span> Time old */}
+							</h1>
+						</div>
+						<HomeContent />
+					</div>
+				</div>
 			</main>
 		</>
 	);

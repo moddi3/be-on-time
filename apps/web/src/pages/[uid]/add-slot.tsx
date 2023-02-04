@@ -5,7 +5,7 @@ import { RRule, RRuleSet, rrulestr } from 'rrule';
 import { Suspense } from 'react';
 
 import { datetime } from '../../utils/datetime.rrule';
-import { EventSourceInput } from '@fullcalendar/react';
+import { EventSourceInput } from '@fullcalendar/core';
 
 const Calendar = dynamic(() => import('../../components/Calendar'), { ssr: false });
 

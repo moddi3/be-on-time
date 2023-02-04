@@ -3,7 +3,17 @@
 	"pipeline": {
 		"build": {
 			"dependsOn": ["^build"],
-			"outputs": [".next/**", "dist/**"]
+			"outputs": [".next/**", "dist/**"],
+			"env": [
+				"NODE_ENV",
+				"DATABASE_URL",
+				"NEXTAUTH_SECRET",
+				"NEXTAUTH_URL",
+				"GOOGLE_CLIENT_ID",
+				"GOOGLE_CLIENT_SECRET",
+				"VERCEL_URL",
+				"PORT"
+			]
 		},
 		"dev": {
 			"cache": false
@@ -11,15 +21,5 @@
 		"lint": {
 			"outputs": []
 		}
-	},
-	"globalDependencies": [
-		"$NODE_ENV",
-		"$DATABASE_URL",
-		"$NEXTAUTH_SECRET",
-		"$NEXTAUTH_URL",
-		"$GOOGLE_CLIENT_ID",
-		"$GOOGLE_CLIENT_SECRET",
-		"$VERCEL_URL",
-		"$PORT"
-	]
+	}
 }

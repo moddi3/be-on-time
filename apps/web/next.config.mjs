@@ -26,13 +26,8 @@ export default defineNextConfig({
 		locales: ['en'],
 		defaultLocale: 'en',
 	},
+	transpilePackages: ['@babel/preset-react', '@fullcalendar/common', '@fullcalendar/daygrid', '@fullcalendar/react'],
 	experimental: {
 		newNextLinkBehavior: true,
-		transpilePackages: [
-			'@babel/preset-react',
-			'@fullcalendar/common',
-			'@fullcalendar/daygrid',
-			'@fullcalendar/react',
-		],
 	},
 });
