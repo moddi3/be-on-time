@@ -4,7 +4,10 @@ import { getToken } from 'next-auth/jwt';
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
-	let sessionToken = request.cookies.get('next-auth.session-token')?.value || '';
+	let production = process.env.NODE_ENV === 'production';
+	let cookieName = production ? '__Secure-next-auth.session-token' : 'next-auth.session-token';
+
+	let sessionToken = request.cookies.get(cookieName)?.value || '';
 	let baseUrl = request.nextUrl.origin;
 
 	let result = await fetch(`${baseUrl}/api/auth/is-session-expired?token=${sessionToken}`);
