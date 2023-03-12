@@ -1,8 +1,0 @@
-{
-	"name": "math-helpers",
-	"version": "0.0.0",
-	"main": "index.js",
-	"dependencies": {
-		"typescript": "^4.9.5"
-	}
-}

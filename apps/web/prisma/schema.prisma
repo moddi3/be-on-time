@@ -12,10 +12,6 @@ datasource db {
     relationMode = "prisma"
 }
 
-model Example {
-    id String @id @default(cuid())
-}
-
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
@@ -47,15 +43,15 @@ model Session {
 }
 
 model User {
-    id            String        @id @default(cuid())
+    id            String    @id @default(cuid())
     name          String?
-    email         String?       @unique
+    email         String?   @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
-    timeSlots     TimeSlot[]
-    reservarions  Reservation[]
+    // TimeSlot      TimeSlot[]
+    // Reservation   Reservation[]
 }
 
 model VerificationToken {
@@ -66,50 +62,36 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-// model Contact {
-model Client {
-    id    String @id @default(cuid())
-    name  String
-    email String
-    // emails String[]
-    // redirectUri String?
-    // grants      String[]
-    // scopes      String[]
-    // userId      String
-    // user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    // reservations Reservation[]
-}
+// model TimeSlot {
+//     id          String       @id @default(cuid())
+//     userId      String
+//     weekDay     Int
+//     time        DateTime     @db.Time
+//     user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+//     reservation Reservation?
 
-model TimeSlot {
-    id          String       @id @default(cuid())
-    userId      String
-    weekDay     Int
-    time        DateTime     @db.Time
-    user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-    reservation Reservation?
+//     @@index([userId])
+// }
 
-    @@index([userId])
-}
+// model Reservation {
+//     id          String            @id @default(cuid())
+//     userId      String
+//     clientId    String
+//     timeSlotId  String            @unique
+//     status      ReservationStatus @default(CREATED)
+//     date        DateTime
+//     description String
+//     user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+//     timeSlot    TimeSlot          @relation(fields: [timeSlotId], references: [id], onDelete: Cascade)
+//     // client      Client            @relation(fields: [clientId], references: [id], onDelete: Cascade)
 
-model Reservation {
-    id          String            @id @default(cuid())
-    userId      String
-    clientId    String
-    timeSlotId  String            @unique
-    status      ReservationStatus @default(CREATED)
-    date        DateTime
-    description String
-    user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-    timeSlot    TimeSlot          @relation(fields: [timeSlotId], references: [id], onDelete: Cascade)
-    // client      Client            @relation(fields: [clientId], references: [id], onDelete: Cascade)
+//     @@index([userId])
+// }
 
-    @@index([userId])
-}
-
-enum ReservationStatus {
-    CREATED
-    PENDING
-    CONFIRMED
-    CANCELLED
-    CANCELLED_BY_CLIENT
-}
+// enum ReservationStatus {
+//     CREATED
+//     PENDING
+//     CONFIRMED
+//     CANCELLED
+//     CANCELLED_BY_CLIENT
+// }

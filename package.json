@@ -1,5 +1,5 @@
 {
-	"name": "be-on-ime",
+	"name": "be-on-time",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
@@ -11,8 +11,8 @@
 	},
 	"devDependencies": {
 		"eslint-config-custom": "workspace:*",
-		"prettier": "^2.8.3",
-		"turbo": "^1.7.3"
+		"prettier": "^2.8.4",
+		"turbo": "^1.8.3"
 	},
 	"engines": {
 		"node": ">=14.0.0"

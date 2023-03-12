@@ -5,17 +5,9 @@ import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { prisma } from '../../../server/db/client';
 import { env } from '../../../env/server.mjs';
+import { JWT } from 'next-auth/jwt';
 
 export const authOptions: NextAuthOptions = {
-	// Include user.id on session
-	callbacks: {
-		session({ session, user }) {
-			if (session.user) {
-				session.user.id = user.id;
-			}
-			return session;
-		},
-	},
 	// Configure one or more authentication providers
 	adapter: PrismaAdapter(prisma),
 	providers: [

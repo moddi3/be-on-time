@@ -26,7 +26,18 @@ export default defineNextConfig({
 		locales: ['en'],
 		defaultLocale: 'en',
 	},
-	transpilePackages: ['@babel/preset-react', '@fullcalendar/common', '@fullcalendar/daygrid', '@fullcalendar/react'],
+	// transpilePackages: ['@babel/preset-react', '@fullcalendar/common', '@fullcalendar/daygrid', '@fullcalendar/react'],
+	images: {
+		dangerouslyAllowSVG: true,
+		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'tailwindui.com',
+				pathname: '/img/**',
+			},
+		],
+	},
 	experimental: {
 		newNextLinkBehavior: true,
 	},

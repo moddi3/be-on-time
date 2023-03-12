@@ -1,45 +1,32 @@
 import dayjs from 'dayjs';
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { useState } from 'react';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import { trpc } from '../../utils/trpc';
+import { useSession } from 'next-auth/react';
+import { Session } from 'next-auth';
 
-import isoWeek from 'dayjs/plugin/isoWeek';
+import { Navbar } from '@/components/ui/Navbar';
+import { getServerAuthSession } from '@/server/common/get-server-auth-session';
+import { Sidebar } from '@/components/ui/Sidebar';
 
-dayjs.extend(isoWeek);
-
-const dayOfWeek = (date: Date) => {
-	return dayjs(date).isoWeekday();
+export const getServerSideProps: GetServerSideProps<{ session: Session | null }> = async (ctx) => {
+	return {
+		props: {
+			session: await getServerAuthSession(ctx),
+		},
+	};
 };
 
 const Dashboard: NextPage = () => {
-	const [date, setDate] = useState(new Date());
+	const { data: session } = useSession();
+	const user = session!.user;
 
-	const { data, refetch, isLoading, isError, error } = trpc.timeSlot.getByWeekDay.useQuery(
-		{ weekDay: dayOfWeek(date) },
-		{
-			refetchOnWindowFocus: false,
-			onSuccess: (res) => {
-				console.log(res);
-			},
-			trpc: {},
-		}
-	);
 	return (
-		<div className="w-full h-screen flex justify-center p-10">
-			<div className="">
-				<h1 className="text-2xl font-semibold">Dashboard</h1>
-				<Calendar
-					maxDetail="month"
-					locale="en"
-					onChange={setDate}
-					value={date}
-					onClickDay={() => {
-						// setDate(undefined)
-					}}
-				/>
-			</div>
+		<div className="h-full flex">
+			<Sidebar user={user} />
+
+			<main className="flex-1 min-w-0 overflow-auto">
+				<Navbar user={user} />
+			</main>
 		</div>
 	);
 };

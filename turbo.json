@@ -12,7 +12,8 @@
 				"GOOGLE_CLIENT_ID",
 				"GOOGLE_CLIENT_SECRET",
 				"VERCEL_URL",
-				"PORT"
+				"PORT",
+				"VERCEL"
 			]
 		},
 		"dev": {
