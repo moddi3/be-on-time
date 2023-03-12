@@ -11,7 +11,7 @@ export async function middleware(request: NextRequest) {
 	const { expired } = await result.json();
 
 	if (expired) {
-		return NextResponse.redirect('/');
+		return NextResponse.redirect(baseUrl);
 	}
 
 	return NextResponse.next();
