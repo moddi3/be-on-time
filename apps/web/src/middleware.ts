@@ -7,12 +7,12 @@ export async function middleware(request: NextRequest) {
 	let sessionToken = request.cookies.get('next-auth.session-token')?.value || '';
 	let baseUrl = request.nextUrl.origin;
 
-	let result = await fetch(`${baseUrl}/api/auth/is-session-expired?token=${sessionToken}`);
-	const { expired } = await result.json();
+	// let result = await fetch(`${baseUrl}/api/auth/is-session-expired?token=${sessionToken}`);
+	// const { expired } = await result.json();
 
-	if (expired) {
-		return NextResponse.redirect(baseUrl);
-	}
+	// if (expired) {
+	// 	return NextResponse.redirect(baseUrl);
+	// }
 
 	return NextResponse.next();
 }
