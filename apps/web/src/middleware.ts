@@ -11,10 +11,10 @@ export async function middleware(request: NextRequest) {
 	const { expired } = await result.json();
 
 	if (expired) {
-		request.nextUrl.pathname = '/';
+		return NextResponse.redirect('/');
 	}
 
-	return NextResponse.redirect(request.nextUrl);
+	return NextResponse.next();
 }
 
 // See "Matching Paths" below to learn more
