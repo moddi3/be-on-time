@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
 		request.nextUrl.pathname = '/';
 	}
 
-	return NextResponse.rewrite(request.nextUrl);
+	return NextResponse.redirect(request.nextUrl);
 }
 
 // See "Matching Paths" below to learn more
