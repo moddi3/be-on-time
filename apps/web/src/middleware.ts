@@ -8,10 +8,10 @@ export async function middleware(request: NextRequest) {
 	let baseUrl = request.nextUrl.origin;
 
 	let result = await fetch(`${baseUrl}/api/auth/is-session-expired?token=${sessionToken}`);
-	const { expired } = await result.json();
+	const data = await result.json();
 
-	console.log(await result.json());
-	if (expired) {
+	console.log(data);
+	if (data.expired === true) {
 		return NextResponse.redirect(baseUrl);
 	}
 
